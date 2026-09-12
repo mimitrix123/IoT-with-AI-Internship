@@ -1,5 +1,8 @@
 # Local credentials
 **/secrets.h
+.env
+.env.*
+!.env.example
 
 # Arduino build/editor files
 **/*.bin
@@ -7,3 +10,12 @@
 **/*.hex
 .vscode/
 .arduinoIDE/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Week 3 runtime data and trained artifacts
+Week-3-Smart-Doorbell/data/events.db
+Week-3-Smart-Doorbell/data/snapshots/
+Week-3-Smart-Doorbell/models/visitor_classifier.json
