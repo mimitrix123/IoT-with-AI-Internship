@@ -1,0 +1,9 @@
+# Local credentials
+**/secrets.h
+
+# Arduino build/editor files
+**/*.bin
+**/*.elf
+**/*.hex
+.vscode/
+.arduinoIDE/
