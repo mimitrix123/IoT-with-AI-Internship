@@ -19,3 +19,8 @@ __pycache__/
 Week-3-Smart-Doorbell/data/events.db
 Week-3-Smart-Doorbell/data/snapshots/
 Week-3-Smart-Doorbell/models/visitor_classifier.json
+Week-3-Smart-Doorbell/models/visitor_classifier.joblib
+
+# Week 4 runtime data and trained artifacts
+Week-4-AI-Smart-Home/data/smart_home.db
+Week-4-AI-Smart-Home/ml/artifacts/
