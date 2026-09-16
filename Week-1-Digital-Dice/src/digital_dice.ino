@@ -8,34 +8,34 @@
 
 const byte LED_COUNT = 7;
 
-// LED positions: top-left, top-center, top-right,
-// middle-left, center, middle-right, bottom-center.
+// LED positions: top-left, top-right, middle-left, center,
+// middle-right, bottom-left, bottom-right.
 const byte ledPins[LED_COUNT] = {2, 3, 4, 5, 6, 7, 8};
 
 const byte BUTTON_PIN = 9;
 const byte BUZZER_PIN = 10;
 
-// Dice faces. Each row contains the LEDs that should be ON.
-// 1 = top-left, 2 = top-center, 3 = top-right,
-// 4 = middle-left, 5 = center, 6 = middle-right, 7 = bottom-center.
+// LED order:
+// 0 = top-left, 1 = top-right, 2 = middle-left,
+// 3 = center, 4 = middle-right, 5 = bottom-left, 6 = bottom-right.
 const bool diceFaces[6][LED_COUNT] = {
   // 1: center
-  {false, false, false, false, true,  false, false},
+  {false, false, false, true,  false, false, false},
 
   // 2: top-left + bottom-right
   {true,  false, false, false, false, false, true},
 
   // 3: top-left + center + bottom-right
-  {true,  false, false, false, true,  false, true},
+  {true,  false, false, true,  false, false, true},
 
-  // 4: top-left + top-right + bottom-left + bottom-right
-  {true,  false, true,  true,  false, true, true},
+  // 4: four corners
+  {true,  true,  false, false, false, true, true},
 
   // 5: four corners + center
-  {true,  false, true,  true, true,  true, true},
+  {true,  true,  false, true,  false, true, true},
 
-  // 6: four corners + top-center + bottom-center
-  {true,  true,  true,  true, false, true, true}
+  // 6: four corners + both middle side LEDs
+  {true,  true,  true, false, true,  true, true}
 };
 
 void clearLeds() {
@@ -56,13 +56,14 @@ void showFace(byte value) {
 }
 
 void rollFeedback(byte value) {
-  // Short roll sequence for visual/audible feedback.
+  // Short rolling animation with audible feedback.
   for (byte i = 0; i < 3; i++) {
     showFace(random(1, 7));
     tone(BUZZER_PIN, 700 + (i * 150), 70);
     delay(100);
   }
 
+  // Display the final result and play a confirmation tone.
   showFace(value);
   tone(BUZZER_PIN, 1000, 120);
 }
@@ -72,6 +73,7 @@ void setup() {
     pinMode(ledPins[i], OUTPUT);
   }
 
+  // Button connects between D9 and GND.
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   pinMode(BUZZER_PIN, OUTPUT);
 
@@ -101,5 +103,5 @@ void loop() {
     }
   }
 
-  lastButtonState = digitalRead(BUTTON_PIN);
+  lastButtonState = buttonState;
 }
